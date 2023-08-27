@@ -1,0 +1,45 @@
+* {
+  font-family: "Dosis", sans-serif;
+}
+
+body {
+  background-color: #d6e9f9;
+}
+
+.main-title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.cube-scramble-move {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.stopwatch {
+  display: inline-block;
+  margin-top: 2rem;
+  position:absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.center-absolute {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 44%;
+  transform: translateY(-50%);
+}
+
+.separator-label {
+  font-size: 8vw;
+}
+
+.main-label {
+  font-size: 12vw;
+}
+
+.sub-label {
+  font-size: 8vw;
+}
