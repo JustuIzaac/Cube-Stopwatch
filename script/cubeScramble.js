@@ -1,60 +1,76 @@
-const movesData1 = ["F", "B"];
-const movesData2 = ["U", "D"];
-const movesData3 = ["L", "R"];
-const separators = ["' ", "2 ", " "];
-const scrambleLength = 20;
+const MOVESDATA1 = ["F", "B"];
+const MOVESDATA2 = ["U", "D"];
+const MOVESDATA3 = ["L", "R"];
 
-export function resetScramble(){
-    let scrambleText = document.querySelector(".cube-scramble-move");
-    let myScramble = getScramble();
-    scrambleText.textContent = myScramble;
+const SPACE = "&nbsp&nbsp&nbsp;";
+const SEPARATORS1 = ["'", "2", ""];
+const ENDATTRIBUTES = ["w", ""];
+const FRONTATTRIBUTES = ["3", ""];
+
+export function resetScramble(cubeDimension) {
+  let scrambleText = document.querySelector(".cube-scramble-move");
+  let myScramble = getScramble(cubeDimension);
+  console.log(myScramble);
+  scrambleText.innerHTML = myScramble;
 }
 
-function getScramble() {
+function getScramble(cubeDimension) {
+  let scrambleLength = 3*cubeDimension**2;
+
+  let moves1 = [...MOVESDATA1];
+  let moves2 = [...MOVESDATA2];
+  let moves3 = [...MOVESDATA3];
+
   let scramble = "";
 
-  let moves1 = [...movesData1];
-  let moves2 = [...movesData2];
-  let moves3 = [...movesData3];
-
+  let randomBasicMove;
   let randomMove;
   let separator;
 
   for (let i = 0; i < scrambleLength; i++) {
     if (i == 0) {
-      randomMove = getRandom(moves1.concat(moves2, moves3));
+      randomBasicMove = getRandom(moves1.concat(moves2, moves3));
     } else {
-      if (movesData1.includes(randomMove)) {
-        removeArrayElement(randomMove, moves1);
+      if (MOVESDATA1.includes(randomBasicMove)) {
+        removeArrayElement(randomBasicMove, moves1);
 
-        randomMove = getRandom(moves1.concat(moves2, moves3));
+        randomBasicMove = getRandom(moves1.concat(moves2, moves3));
 
-        moves2 = [...movesData2];
-        moves3 = [...movesData3];
-      } else if (movesData2.includes(randomMove)) {
-        removeArrayElement(randomMove, moves2);
+        moves2 = [...MOVESDATA2];
+        moves3 = [...MOVESDATA3];
+      } else if (MOVESDATA2.includes(randomBasicMove)) {
+        removeArrayElement(randomBasicMove, moves2);
 
-        randomMove = getRandom(moves1.concat(moves2, moves3));
+        randomBasicMove = getRandom(moves1.concat(moves2, moves3));
 
-        moves1 = [...movesData1];
-        moves3 = [...movesData3];
+        moves1 = [...MOVESDATA1];
+        moves3 = [...MOVESDATA3];
       } else {
-        removeArrayElement(randomMove, moves3);
+        removeArrayElement(randomBasicMove, moves3);
 
-        randomMove = getRandom(moves1.concat(moves2, moves3));
+        randomBasicMove = getRandom(moves1.concat(moves2, moves3));
 
-        moves1 = [...movesData1];
-        moves2 = [...movesData2];
+        moves1 = [...MOVESDATA1];
+        moves2 = [...MOVESDATA2];
       }
     }
 
+    if (cubeDimension >= 6) {
+      randomMove =
+        getRandom(FRONTATTRIBUTES) + randomBasicMove + getRandom(ENDATTRIBUTES);
+    } else if (cubeDimension >= 4) {
+      randomMove = randomBasicMove + getRandom(ENDATTRIBUTES);
+    } else{
+      randomMove = randomBasicMove;
+    }
+
     if (i < scrambleLength) {
-      separator = getRandom(separators);
+      separator = getRandom(SEPARATORS1);
     } else {
       separator = "";
     }
 
-    scramble += randomMove + separator;
+    scramble += randomMove + separator + SPACE;
   }
 
   return scramble;

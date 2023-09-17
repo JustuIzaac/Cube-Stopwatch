@@ -8,43 +8,50 @@ import {
 } from "./stopwatch.js";
 
 window.onload = function () {
+  let cubeDimensionSelect = document.querySelector(".cube-dimension");
+  let resetButton = document.querySelector(".reset-button");
+
   let fired = false;
   let stopwatchReady = false;
   let stopwatchRun = false;
 
   let preDelay;
 
-  resetScramble();
+  resetScramble(getDimension());
+
+  cubeDimensionSelect.onchange = function(){resetScramble(getDimension())};
+
+  resetButton.onclick = function(){resetScramble(getDimension())};
 
   document.body.onkeydown = function (e) {
-    if (e.key == " ") {
-      if (!fired) {
-        fired = true;
-
-        if (!stopwatchRun) {
+    if (!fired) {
+      fired = true;
+      if (!stopwatchRun) {
+        if (e.key == " ") {
+          e.preventDefault();
           indicateStopwatchNotReady();
 
           preDelay = setTimeout(indicateStopwatchReady, 500);
-        } else {
-          stopStopwatch();
-
-          stopwatchRun = false;
-          stopwatchReady = false;
         }
+      } else {
+        stopStopwatch();
+
+        stopwatchRun = false;
+        stopwatchReady = false;
       }
     }
   };
 
   document.body.onkeyup = function (e) {
-    if (e.key == " ") {
-      fired = false;
+    fired = false;
 
+    if (e.key == " ") {
       if (stopwatchReady) {
         runStopwatch();
 
         stopwatchRun = true;
 
-        resetScramble();
+        resetScramble(getDimension());
       } else {
         stopStopwatch();
 
@@ -55,6 +62,13 @@ window.onload = function () {
       }
     }
   };
+
+  function getDimension(){
+    let cubeDimension = parseInt(cubeDimensionSelect.value)
+    console.log(cubeDimension);
+
+    return cubeDimension;
+}
 
   function indicateStopwatchNotReady() {
     whenStopwatchNotReady();

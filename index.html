@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <title>Cube Stopwatch</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,13 +14,33 @@
   </head>
   <body>
     <div class="main-title not-stopwatch">Cube Stopwatch</div>
-    <div class="cube-scramble-move not-stopwatch">halo</div>
-    <div class="stopwatch">
-      <span class="main-label">0</span>
-      <span class="separator-label">.</span>
-      <span class="sub-label">0</span>
+    <div class="tool-cont not-stopwatch">
+      <div class="tool-wrap">
+        <div class="select-wrap">
+          <select name="cube-dimension" class="cube-dimension">
+            <option value="3">3 x 3 x 3</option>
+            <option value="2">2 x 2 x 2</option>
+            <option value="4">4 x 4 x 4</option>
+            <option value="5">5 x 5 x 5</option>
+            <option value="6">6 x 6 x 6</option>
+            <option value="7">7 x 7 x 7</option>
+          </select>
+        </div>
+        <div class="reset-button not-stopwatch">&#8635;</div>
+      </div>
+    </div>
+    <div class="cube-scramble-move not-stopwatch"></div>
+    <div class="stopwatch-cont">
+      <div class="stopwatch-wrap">
+        <div class="stopwatch">
+          <div class="main-label-wrap"><span class="main-label">0</span></div>
+          <div class="separator-label-wrap">
+            <span class="separator-label">.</span>
+          </div>
+          <div class="sub-label-wrap"><span class="sub-label">0</span></div>
+        </div>
+      </div>
     </div>
     <script type="module" src="script/main.js"></script>
-    <script type="module" src="script/stopwatch.js"></script>
   </body>
 </html>
